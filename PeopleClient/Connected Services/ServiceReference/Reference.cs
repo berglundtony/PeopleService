@@ -28,22 +28,22 @@ namespace PeopleClient.ServiceReference {
         System.Threading.Tasks.Task<PeopleLibrary.Person> GetPersonAsync(int pId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPeopleService/GetFamily", ReplyAction="http://tempuri.org/IPeopleService/GetFamilyResponse")]
-        PeopleLibrary.Family GetFamily(System.Nullable<int> pId);
+        PeopleLibrary.Family[] GetFamily(System.Nullable<int> pId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPeopleService/GetFamily", ReplyAction="http://tempuri.org/IPeopleService/GetFamilyResponse")]
-        System.Threading.Tasks.Task<PeopleLibrary.Family> GetFamilyAsync(System.Nullable<int> pId);
+        System.Threading.Tasks.Task<PeopleLibrary.Family[]> GetFamilyAsync(System.Nullable<int> pId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPeopleService/GetTelephone", ReplyAction="http://tempuri.org/IPeopleService/GetTelephoneResponse")]
-        PeopleLibrary.Telephone GetTelephone(int fId);
+        PeopleLibrary.Telephone GetTelephone(int? pFId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPeopleService/GetTelephone", ReplyAction="http://tempuri.org/IPeopleService/GetTelephoneResponse")]
-        System.Threading.Tasks.Task<PeopleLibrary.Telephone> GetTelephoneAsync(int fId);
+        System.Threading.Tasks.Task<PeopleLibrary.Telephone> GetTelephoneAsync(int? fId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPeopleService/GetAddress", ReplyAction="http://tempuri.org/IPeopleService/GetAddressResponse")]
-        PeopleLibrary.Address GetAddress(int pfId);
+        PeopleLibrary.Address GetAddress(int? pfId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPeopleService/GetAddress", ReplyAction="http://tempuri.org/IPeopleService/GetAddressResponse")]
-        System.Threading.Tasks.Task<PeopleLibrary.Address> GetAddressAsync(int pfId);
+        System.Threading.Tasks.Task<PeopleLibrary.Address> GetAddressAsync(int? pfId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -89,27 +89,27 @@ namespace PeopleClient.ServiceReference {
             return base.Channel.GetPersonAsync(pId);
         }
         
-        public PeopleLibrary.Family GetFamily(System.Nullable<int> pId) {
+        public PeopleLibrary.Family[] GetFamily(System.Nullable<int> pId) {
             return base.Channel.GetFamily(pId);
         }
         
-        public System.Threading.Tasks.Task<PeopleLibrary.Family> GetFamilyAsync(System.Nullable<int> pId) {
+        public System.Threading.Tasks.Task<PeopleLibrary.Family[]> GetFamilyAsync(System.Nullable<int> pId) {
             return base.Channel.GetFamilyAsync(pId);
         }
         
-        public PeopleLibrary.Telephone GetTelephone(int fId) {
-            return base.Channel.GetTelephone(fId);
+        public PeopleLibrary.Telephone GetTelephone(int? pFId) {
+            return base.Channel.GetTelephone(pFId);
         }
         
-        public System.Threading.Tasks.Task<PeopleLibrary.Telephone> GetTelephoneAsync(int fId) {
+        public System.Threading.Tasks.Task<PeopleLibrary.Telephone> GetTelephoneAsync(int? fId) {
             return base.Channel.GetTelephoneAsync(fId);
         }
         
-        public PeopleLibrary.Address GetAddress(int pfId) {
+        public PeopleLibrary.Address GetAddress(int? pfId) {
             return base.Channel.GetAddress(pfId);
         }
         
-        public System.Threading.Tasks.Task<PeopleLibrary.Address> GetAddressAsync(int pfId) {
+        public System.Threading.Tasks.Task<PeopleLibrary.Address> GetAddressAsync(int? pfId) {
             return base.Channel.GetAddressAsync(pfId);
         }
     }

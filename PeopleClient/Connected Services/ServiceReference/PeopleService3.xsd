@@ -38,7 +38,7 @@
   <xs:element name="GetFamilyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PeopleLibrary" minOccurs="0" name="GetFamilyResult" nillable="true" type="q3:Family" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PeopleLibrary" minOccurs="0" name="GetFamilyResult" nillable="true" type="q3:ArrayOfFamily" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

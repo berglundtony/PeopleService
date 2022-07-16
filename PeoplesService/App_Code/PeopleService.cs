@@ -60,31 +60,32 @@ namespace Peoples
             return person;
         }
 
-        public Family GetFamily(int? pId)
+        public List<Family> GetFamily(int? pId)
         {
-            Family family = null;
+            List<Family> familylist = new List<Family>();
             try
             {
                 using (PeoplesEntities db = new PeoplesEntities())
                 {
-                    List<PersonFamily> pf = db.PersonFamily.ToList();
-                    List<PersonFamily> familymembers = pf.Where(p => p.PId == pId).ToList(); 
+                    List<PersonFamily> pf = db.PersonFamily.Where(p => p.PId == pId).ToList();
                     int? familyid = 0;
 
-                    foreach(PersonFamily familyfam in familymembers)
+                    foreach(PersonFamily f in pf)
                     {
-                        if(familyfam.PFId != pId)
-                        familyid = familyfam.FId;
+                        if(f.PFId != pId)
+                        familyid = f.FId;
                         Family familymember = db.Family.Where(t => t.FId == familyid).FirstOrDefault();
 
                         if (familymember != null)
                         {
-                            family = new Family
+                            Family family = new Family
                             {
                                 PFId = familymember.PFId,
                                 Born = familymember.Born,
                                 Name = familymember.Name,
                             };
+
+                            familylist.Add(family); 
                         }
                     }
                     
@@ -94,24 +95,39 @@ namespace Peoples
             {
                 //Igone exception
             }
-            return family;
+            return familylist;
         }
 
-        public Telephone GetTelephone(int fId)
+        public Telephone GetTelephone(int? pFId)
         {
             Telephone telephone = null;
+       
             try
             {
                 using (PeoplesEntities db = new PeoplesEntities())
                 {
-                    Telephone currentnumbers = db.Telephone.Where(t => t.FId == fId).FirstOrDefault();
+                    List<PersonFamily> pf = db.PersonFamily.Where(p => p.PFId == pFId).ToList();
+                  
 
-                    telephone = new Telephone
+                    int? teleid = 0;
+
+                    foreach (PersonFamily f in pf)
                     {
-                        FId = currentnumbers.FId,
-                        Mobile = currentnumbers.Mobile,
-                        Landline = currentnumbers.Landline,
-                    };
+                        teleid = f.FId;
+                        Telephone tp = db.Telephone.Where(t => t.FId == teleid).FirstOrDefault();
+
+                        if (tp != null)
+                        {
+                            telephone = new Telephone
+                            {
+                                FId = tp.FId,
+                                Landline = tp.Landline, 
+                                Mobile = tp.Mobile,            
+                            };
+
+       
+                        }
+                    }
                 }
             }
             catch
@@ -121,7 +137,7 @@ namespace Peoples
             return telephone;
         }
 
-        public Address GetAddress(int pfId)
+        public Address GetAddress(int? pfId)
         {
             Address address = null;
             try
@@ -130,13 +146,17 @@ namespace Peoples
                 {
                     Address currentadress = db.Address.Where(t => t.PFId == pfId).FirstOrDefault();
 
-                    address = new Address
+                    if(currentadress != null)
                     {
-                        PFId = currentadress.PFId,
-                        Street = currentadress.Street,
-                        City = currentadress.City,
-                        Zip = currentadress.Zip,
-                    };
+                        address = new Address
+                        {
+                            PFId = currentadress.PFId,
+                            Street = currentadress.Street,
+                            City = currentadress.City,
+                            Zip = currentadress.Zip,
+                        };
+                    }
+           
                 }
             }
             catch

@@ -22,13 +22,13 @@ namespace Peoples
         Person GetPerson(int pId);
 
         [OperationContract]
-        Family GetFamily(int? pId);
+        List<Family> GetFamily(int? pId);
 
         [OperationContract]
-        Telephone GetTelephone(int fId);
+        Telephone GetTelephone(int? pFId);
 
         [OperationContract]
-        Address GetAddress(int pfId);
+        Address GetAddress(int? pfId);
     }
 
 }

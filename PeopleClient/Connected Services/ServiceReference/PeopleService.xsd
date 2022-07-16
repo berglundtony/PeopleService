@@ -9,6 +9,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Person" nillable="true" type="tns:Person" />
+  <xs:complexType name="ArrayOfFamily">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Family" nillable="true" type="tns:Family" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFamily" nillable="true" type="tns:ArrayOfFamily" />
   <xs:complexType name="Family">
     <xs:sequence>
       <xs:element minOccurs="0" name="Born" nillable="true" type="xs:int" />
