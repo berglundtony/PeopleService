@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a669e35eb14f4d7dbeb57d51808c65bd" Name="Diagram1">
-        <EntityTypeShape EntityType="PeoplesEntityModel.Address" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PeoplesEntityModel.Family" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PeoplesEntityModel.Person" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PeoplesEntityModel.PersonFamily" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PeoplesEntityModel.Telephone" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeoplesEntityModel.Address" Width="1.5" PointX="2.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeoplesEntityModel.Family" Width="1.5" PointX="2.375" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeoplesEntityModel.Person" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeoplesEntityModel.PersonFamily" Width="1.5" PointX="0.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeoplesEntityModel.Telephone" Width="1.5" PointX="4.125" PointY="0.5" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

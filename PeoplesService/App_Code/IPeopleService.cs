@@ -29,6 +29,9 @@ namespace Peoples
 
         [OperationContract]
         Address GetAddress(int? pfId);
+
+        [OperationContract]
+        List<string> GetPeopleStringList();
     }
 
 }

@@ -17,12 +17,12 @@
       <service name="PeopleService.PeoplesService">
         <host>
           <baseAddresses>
-            <add baseAddress="http://localhost:8733/Design_Time_Addresses/PeopleLibrary/PeopleService/" />
+            <add baseAddress="http://localhost:53314/" />
           </baseAddresses>
         </host>
         <!-- Service Endpoints -->
         <!-- Unless fully qualified, address is relative to base address supplied above -->
-        <endpoint address="PeopleService" binding="basicHttpBinding" contract="PeopleLibrary.IPeopleService">
+        <endpoint address="PeopleService" binding="basicHttpBinding" contract="PeopleService.IPeopleService">
           <!-- 
               Upon deployment, the following identity element should be removed or replaced to reflect the 
               identity under which the deployed service runs.  If removed, WCF will infer an appropriate identity 

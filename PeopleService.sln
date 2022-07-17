@@ -5,11 +5,6 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleLibrary", "PeopleLibrary\PeopleLibrary.csproj", "{49222F69-5B48-4AF4-9C4E-DA49992BD4AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleClient", "PeopleClient\PeopleClient.csproj", "{5FDEA63C-9913-4703-9BD6-4FF628577A36}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A616A8A0-1687-4071-B380-7CF23FB0560B} = {A616A8A0-1687-4071-B380-7CF23FB0560B}
-	EndProjectSection
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PeoplesService", "PeoplesService\", "{A616A8A0-1687-4071-B380-7CF23FB0560B}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
@@ -33,6 +28,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PeoplesService", "PeoplesSe
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeoplesXMLGenerator", "PeoplesXMLGenerator\PeoplesXMLGenerator.csproj", "{E8F56661-A13D-4584-9B92-36808E1088B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A616A8A0-1687-4071-B380-7CF23FB0560B} = {A616A8A0-1687-4071-B380-7CF23FB0560B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,14 +43,14 @@ Global
 		{49222F69-5B48-4AF4-9C4E-DA49992BD4AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49222F69-5B48-4AF4-9C4E-DA49992BD4AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49222F69-5B48-4AF4-9C4E-DA49992BD4AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FDEA63C-9913-4703-9BD6-4FF628577A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FDEA63C-9913-4703-9BD6-4FF628577A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FDEA63C-9913-4703-9BD6-4FF628577A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FDEA63C-9913-4703-9BD6-4FF628577A36}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A616A8A0-1687-4071-B380-7CF23FB0560B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A616A8A0-1687-4071-B380-7CF23FB0560B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A616A8A0-1687-4071-B380-7CF23FB0560B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{A616A8A0-1687-4071-B380-7CF23FB0560B}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{E8F56661-A13D-4584-9B92-36808E1088B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F56661-A13D-4584-9B92-36808E1088B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F56661-A13D-4584-9B92-36808E1088B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F56661-A13D-4584-9B92-36808E1088B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
