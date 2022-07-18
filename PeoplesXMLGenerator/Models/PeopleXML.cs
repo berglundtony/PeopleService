@@ -12,26 +12,16 @@ namespace PeoplesXMLGenerator.Models
     [XmlRoot("people")]
     public class People
     {
-        public Person person { get; set; }
-        public Family family { get; set; }
-        public Telephone phone { get; set; }
-        public Address address { get; set; }
-        public List<Family> familyList { get; set; }
-
+        [XmlElement("person", Type = typeof(Person))]
         public List<Person> personList { get; set; }
         public People()
         {
-            person = new Person();
-            family = new Family();
-            phone = new Telephone();
-            address = new Address();
-            familyList = new List<Family>();
             personList = new List<Person>();
         }
     }
 
     [Serializable]
-    
+    [XmlRoot("person")]
     public class Person
     {
         //public int pId { get; set; }
@@ -43,51 +33,85 @@ namespace PeoplesXMLGenerator.Models
         [XmlElement("lastname")]
         public string Lastname { get; set; }
 
-        [XmlElement("phone")]
+        [XmlElement("phone", IsNullable = true, Type = typeof(Telephone))]
         public Telephone phone { get; set; }
-        [XmlElement("adress")]
+        [XmlElement("address", IsNullable = true, Type = typeof(Address))]
         public Address address { get; set; }
+
+        [XmlIgnore]
+        public Family family { get; set; }
+
+        [XmlElement("family", IsNullable = true, Type = typeof(Family))]
+        public List<Family> familyList { get; set; }
+
 
         public Person()
         {
             phone = new Telephone();
             address = new Address();
+            family = new Family();
+            familyList = new List<Family>();
         }
     }
-    //public List<Family> family { get; set; }
 }
-    [Serializable]
-    public class Family
-    {
-        //public int pFId { get; set; }
-        [XmlElement("name")]
-        public string Name { get; set; }
-        [XmlElement("born")]
-        public int? Born { get; set; }
-        [XmlElement("phone")]
-        public Telephone phone { get; set; }
-        [XmlElement("adress")]
-        public Address adress { get; set; }
-}
-    [Serializable]
-    public class Address
-    {
-        [XmlElement("street")]
-        public string Street { get; set; }
-        [XmlElement("city")]
-        public string City { get; set; }
-        [XmlElement("zip")]
-        public int? Zip { get; set; }
-    }
-    [Serializable]
-    public class Telephone
-    {
-        //public int pFId { get; set; }
-        [XmlElement("mobile")]
-        public string Mobile { get; set; }
+[Serializable]
+public class Family
+{
 
-        [XmlElement("landline")]
-        public string Landline { get; set; }
+    [XmlElement("name")]
+    public string Name { get; set; }
+    [XmlElement("born")]
+    public int? Born { get; set; }
+
+    [XmlElement("phone", IsNullable = true, Type = typeof(Telephone))]
+    public Telephone phone { get; set; }
+    [XmlElement("address", Type = typeof(Address))]
+    [DefaultValue(null)]
+    public Address address { get; set; } 
+    [XmlIgnore]
+    public bool AddressSpecified
+    {
+        get
+        {
+            return address != null
+                  && !string.IsNullOrEmpty(address.Street)
+                  && !string.IsNullOrEmpty(address.City)
+                  && !string.IsNullOrEmpty(address.Zip.ToString());
+        }
+        set { return; }
+  
     }
+
+    public Family()
+    {
+        phone = new Telephone();
+        address = new Address();
+    }
+}
+[Serializable]
+public class Address
+{
+    [XmlElement("street")]
+    public string Street { get; set; }
+    public bool ShouldSerializeStreet() { return true; }
+
+    [XmlElement("city")]
+    public string City { get; set; }
+    public bool ShouldSerializeCity() { return true; }
+
+    [XmlElement("zip", IsNullable = true)]
+    public int? Zip { get; set; }
+    public bool ShouldSerializeZip() { return Zip != null; }
+}
+
+[Serializable]
+public class Telephone
+{
+    [XmlElement("mobile")]
+    public string Mobile { get; set; }
+
+    [XmlElement("landline")]
+    public string Landline { get; set; }
+}
 
 

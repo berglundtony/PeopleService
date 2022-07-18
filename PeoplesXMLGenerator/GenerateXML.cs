@@ -12,11 +12,13 @@ using PeoplesXMLGenerator.Models;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace PeoplesXMLGenerator
 {
     public partial class GenerateXML : Form
     {
+        static Regex emptyElementRegex = new Regex(@"<(\w+)\s*/>");
         public GenerateXML()
         {
             InitializeComponent();
@@ -24,107 +26,105 @@ namespace PeoplesXMLGenerator
 
         private void generateXML_Click(object sender, EventArgs e)
         {
-
+           
             using (PeopleServiceClient psc = new PeopleServiceClient())
             {
                 string[] peoplesList = psc.GetPeopleStringList();
                 People p = new People();
+                bool familybool = false;
+                bool personbool = false;
                 var person = new Models.Person();
-                var pList = new List<Models.Person>();  
                 foreach (var people in peoplesList)
                 {
                     var firstletter = people.FirstOrDefault();
-               
-                    switch (firstletter)
-                    {
-                        case 'P':
-                            string[] pers = people.Split('|');
-                            person.Firstname = pers[1].ToString();
-                            person.Lastname = pers[2].ToString();
-                            //pList.Add(person);
 
-                            //p.person.Firstname = pers[1];
-                            //p.person.Lastname = pers[2];
-                            break;
-                        case 'T':
+            
+                    if (firstletter == 'P')
+                    {
+                        if (personbool)
+                        {
+                            personbool = false;
+                            p.personList.Add(person);
+                            person = new Models.Person();
+                        }
+                        string[] pers = people.Split('|');
+                        person.Firstname = pers[1].ToString();
+                        person.Lastname = pers[2].ToString();
+                        familybool = false;
+                   
+                    }
+                    if (familybool == false)
+                    {
+                        if (firstletter == 'T')
+                        {
                             string[] phones = people.Split('|');
                             person.phone.Mobile = phones[1].ToString();
-                            person.phone.Landline= phones[2].ToString();
-                            //pList.Add((person));
-                            //p.phone.Mobile = phones[1];
-                            //p.phone.Landline = phones[2];
-                            break;
-                        case 'A':
+                            person.phone.Landline = phones[2].ToString();
+                            personbool = true;
+                        }
+                        if (firstletter == 'A')
+                        {
                             string[] addr = people.Split('|');
                             person.address.Street = addr[1].ToString();
                             person.address.City = addr[2].ToString();
-                            if(addr[3] != String.Empty)
-                            person.address.Zip = int.Parse(addr[3]);
-                            //pList.Add((person));
-                            p.personList.Add(person);
-
-                       
-                            //p.address.Street = addr[1]; 
-                            //p.address.City = addr[2];
-                            //if (addr[3] != "")
-                            //p.address.Zip = int.Parse(addr[3]);
-                            break;
-                        case 'F':
+                            if (addr[3] != String.Empty)
+                                person.address.Zip = int.Parse(addr[3]);
+                            personbool = true;
+                        }
+                        if (firstletter == 'F')
+                        {
+                            if (person.familyList.Count > 0)
+                                person.family = new Family();
                             string[] fam = people.Split('|');
-                            p.familyList.Add(new Family { Name = fam[1].ToString(), Born = int.Parse(fam[2]) });
-                            //p.family.Name = fam[1];
-                            //p.family.Born = int.Parse(fam[2]);
-                            break;
-                        default:
-                            break;
+                            person.family.Name = fam[1].ToString();
+                            person.family.Born = int.Parse(fam[2]);
+                            familybool = true;
+                       }
+                        if(p.personList.Count > 0 && personbool == true)
+                        {
+                        
+                            personbool = false;
+                            p.personList.Add(person);
+                        }
                     }
-                  
+                    else
+                    {
+         
+                        if (firstletter == 'T')
+                        {
+                            string[] phones = people.Split('|');
+                            person.family.phone.Mobile = phones[1].ToString();
+                            person.family.phone.Landline = phones[2].ToString();
+
+                        }
+                        if (firstletter == 'A')
+                        {
+                            string[] addr = people.Split('|');
+                            person.family.address.Street = addr[1].ToString();
+                            person.family.address.City = addr[2].ToString();
+                            if (addr[3] != String.Empty)
+                                person.family.address.Zip = int.Parse(addr[3]);
+                        }
+                        person.familyList.Add(person.family);
+                        familybool = false;
+
+                        if (person.Firstname != String.Empty)
+                        {
+                            personbool = true;
+                        }  
+                    }
+                
                 }
-                //Serialize(p);
-                //person2Xml(p);
+
                 var serializer = new XmlSerializer(p.GetType());
                 using (var writer = XmlWriter.Create("people.xml"))
                 {
+                    StringWriter sw = new StringWriter();
                     serializer.Serialize(writer, p);
                 }
-                //FileStream fs = new FileStream(@"C:\", FileMode.OpenOrCreate);
-                //XmlSerializer serializedPeople = new XmlSerializer(typeof(People));
-                //XmlSerializer.Serialize(fs, p);
-
-                //using (var writer = new StreamWriter("C:\\File.xml"))
-                //{
-                //    XmlSerializer.Serialize(writer, );
-                //}
-                //using (var stringwriter = new StringWriter())
-                //{
-                //    var serializer = new XmlSerializer(this.GetType());
-                //    serializer.Serialize(stringwriter, this);
-                //    return stringwriter.ToString();
-                //}
             }
         }
 
-        //private string person2Xml(object obj)
-        //{
-        //    XmlSerializer serializer = new XmlSerializer(obj.GetType());
-        //    StringBuilder result = new StringBuilder();
-        //    using (var writer = new StreamWriter("C:\\File.xml"))
-        //    {
-        //        serializer.Serialize(writer, obj);
-        //    }
-        //    return result.ToString();
-        //}
-        //public static string Serialize(object dataToSerialize)
-        //{
-        //    if (dataToSerialize == null) return null;
-
-        //    using (StringWriter stringwriter = new System.IO.StringWriter())
-        //    {
-        //        var serializer = new XmlSerializer(dataToSerialize.GetType());
-        //        serializer.Serialize(stringwriter, dataToSerialize);
-        //        return stringwriter.ToString();
-        //    }
-        //}
-
     }
+
 }

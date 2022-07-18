@@ -21,8 +21,6 @@ namespace Peoples
                     int? pFId = person.PFId;
                     string p = string.Format("P|{0}|{1}", person.Forname, person.Lastname);
                     stringList.Add(p);
-                    //pd.person.Firstname = person.Forname;
-                    //pd.person.Lastname = person.Lastname;
 
                     var tel = peopleservice.GetTelephone(pFId);
 
@@ -30,8 +28,6 @@ namespace Peoples
                     {
                         string t = string.Format("T|{0}|{1}", tel.Mobile, tel.Landline);
                         stringList.Add(t);
-                        //pd.telephone.Mobile = tel.Mobile;
-                        //pd.telephone.Landline = tel.Landline;
                     }
 
                     var address = peopleservice.GetAddress(pFId);
@@ -39,9 +35,6 @@ namespace Peoples
                     {
                         string a = string.Format("A|{0}|{1}|{2}", address.Street,address.City, address.Zip);
                         stringList.Add(a);
-                        //pd.address.Street = address.Street;
-                        //pd.address.City = address.City;
-                        //pd.address.Zip = address.Zip;
                     }
 
 
@@ -51,16 +44,12 @@ namespace Peoples
                     {
                         string fa = string.Format("F|{0}|{1}", f.Name.Trim(), f.Born);
                         stringList.Add(fa);
-                        //pd.familyList.Add(new Family { Name = f.Name, Born = f.Born });
                         address = peopleservice.GetAddress(f.PFId);
 
                         if (address != null)
                         {
                             string a = string.Format("A|{0}|{1}|{2}", address.Street, address.City, address.Zip);
                             stringList.Add(a);
-                            //pd.address.Street = address.Street;
-                            //pd.address.City = address.City;
-                            //pd.address.Zip = address.Zip;
                         }
 
                         var tele = peopleservice.GetTelephone(f.PFId);
@@ -68,8 +57,7 @@ namespace Peoples
                         {
                             string t = string.Format("T|{0}|{1}", tel.Mobile, tel.Landline);
                             stringList.Add(t);
-                            //pd.telephone.Mobile = tele.Mobile;
-                            //pd.telephone.Landline = tele.Landline;
+                      
                         }
                     } 
                 }

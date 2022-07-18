@@ -66,31 +66,22 @@ namespace Peoples
             {
                 using (PeoplesEntities db = new PeoplesEntities())
                 {
-                    List<PersonFamily> pf = db.PersonFamily.Where(p => p.PId == pId).ToList();
-                    int? familyid = 0;
-
-                    foreach(PersonFamily f in pf)
+                
+                    var perfam = db.PersonFamily.Where(p => p.PId == pId).ToList();
+                    foreach(var p in perfam)
                     {
-                        if(f.PFId != pId)
-                        familyid = f.FId;
-                        Family familymember = db.Family.Where(t => t.FId == familyid).FirstOrDefault();
+                       
+                            var fam = db.Family.Where(pe => pe.PFId == p.PFId).FirstOrDefault();
 
-                        if (familymember != null)
-                        {
-                            Family family = new Family
-                            {
-                                PFId = familymember.PFId,
-                                Born = familymember.Born,
-                                Name = familymember.Name,
-                            };
-
-                            familylist.Add(family); 
-                        }
+                        if (p.PFId != pId && fam != null)
+                            familylist.Add(new Family { FId = fam.FId, PFId = fam.PFId, Name = fam.Name, Born = fam.Born });
                     }
+                 
+
                     
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 //Igone exception
             }
